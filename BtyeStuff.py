@@ -14,3 +14,13 @@ stf=charStuff(fb,eb,msg)
 print("message after character stuffing:",stf)
 dstf=charDestuff(fb,eb,stf)
 print("message after character Destuffing:",dstf)
+
+
+
+output:
+
+enter some message:aefbef
+enter flag byte:f
+enter escbyte:e
+original message: aefbef
+message after character stuffing: faeeefbeeeff
