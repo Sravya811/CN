@@ -1,0 +1,126 @@
+def go_back_n_sender(frames, window_size):
+    print("\n--- Go-Back-N Sender Simulation ---")
+    n = len(frames)
+    base = 0
+    next_seq = 0
+    acks = [False] * n
+
+    while base < n:
+        # Send up to window_size frames
+        while next_seq < base + window_size and next_seq < n:
+            print(f"Sent Frame: {frames[next_seq]} (Seq No: {next_seq})")
+            next_seq += 1
+
+        # Simulate acknowledgment
+        ack_input = input(f"Enter last ACK received (or frame number with error/loss) [{base}-{next_seq - 1}]: ")
+
+        # Simulating loss/error (resend from given frame)
+        if ack_input.isdigit():
+            ack_num = int(ack_input)
+            if ack_num >= base:
+                print(f"ACK {ack_num} lost or error in frame {ack_num}. Go back to {ack_num}.\n")
+                next_seq = base = ack_num--- Go-Back-N Sender Simulation ---
+Sent Frame: F0 (Seq No: 0)
+Sent Frame: F1 (Seq No: 1)
+Sent Frame: F2 (Seq No: 2)
+Sent Frame: F3 (Seq No: 3)
+Enter last ACK received (or frame number with error/loss) [0-3]: 1
+ACK 1 lost or error in frame 1. Go back to 1.
+
+Sent Frame: F1 (Seq No: 1)
+Sent Frame: F2 (Seq No: 2)
+Sent Frame: F3 (Seq No: 3)
+Sent Frame: F4 (Seq No: 4)
+Enter last ACK received (or frame number with error/loss) [1-4]: 2
+ACK 2 lost or error in frame 2. Go back to 2.
+
+Sent Frame: F2 (Seq No: 2)
+Sent Frame: F3 (Seq No: 3)
+Sent Frame: F4 (Seq No: 4)
+Sent Frame: F5 (Seq No: 5)
+Enter last ACK received (or frame number with error/loss) [2-5]: 4
+ACK 4 lost or error in frame 4. Go back to 4.
+
+Sent Frame: F4 (Seq No: 4)
+Sent Frame: F5 (Seq No: 5)
+Sent Frame: F6 (Seq No: 6)
+Sent Frame: F7 (Seq No: 7)
+Enter last ACK received (or frame number with error/loss) [4-7]: 5
+ACK 5 lost or error in frame 5. Go back to 5.
+
+Sent Frame: F5 (Seq No: 5)
+Sent Frame: F6 (Seq No: 6)
+Sent Frame: F7 (Seq No: 7)
+Enter last ACK received (or frame number with error/loss) [5-7]: 7
+ACK 7 lost or error in frame 7. Go back to 7.
+
+Sent Frame: F7 (Seq No: 7)
+Enter last ACK received (or frame number with error/loss) [7-7]: 
+
+            else:
+                print("Invalid ACK. Try again.")
+        elif ack_input == 'done':
+            print("\nAll frames sent successfully!")
+            break
+        else:
+            # On valid ACK up to next_seq-1
+            base = next_seq
+
+frames = ['F0', 'F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7']
+window_size = 4
+
+# Run simulation
+go_back_n_sender(frames, window_size)
+
+
+
+
+
+
+output
+
+
+
+--- Go-Back-N Sender Simulation ---
+Sent Frame: F0 (Seq No: 0)
+Sent Frame: F1 (Seq No: 1)
+Sent Frame: F2 (Seq No: 2)
+Sent Frame: F3 (Seq No: 3)
+Enter last ACK received (or frame number with error/loss) [0-3]: 1
+ACK 1 lost or error in frame 1. Go back to 1.
+
+Sent Frame: F1 (Seq No: 1)
+Sent Frame: F2 (Seq No: 2)
+Sent Frame: F3 (Seq No: 3)
+Sent Frame: F4 (Seq No: 4)
+Enter last ACK received (or frame number with error/loss) [1-4]: 2
+ACK 2 lost or error in frame 2. Go back to 2.
+
+Sent Frame: F2 (Seq No: 2)
+Sent Frame: F3 (Seq No: 3)
+Sent Frame: F4 (Seq No: 4)
+Sent Frame: F5 (Seq No: 5)
+Enter last ACK received (or frame number with error/loss) [2-5]: 4
+ACK 4 lost or error in frame 4. Go back to 4.
+
+Sent Frame: F4 (Seq No: 4)
+Sent Frame: F5 (Seq No: 5)
+Sent Frame: F6 (Seq No: 6)
+Sent Frame: F7 (Seq No: 7)
+Enter last ACK received (or frame number with error/loss) [4-7]: 5
+ACK 5 lost or error in frame 5. Go back to 5.
+
+Sent Frame: F5 (Seq No: 5)
+Sent Frame: F6 (Seq No: 6)
+Sent Frame: F7 (Seq No: 7)
+Enter last ACK received (or frame number with error/loss) [5-7]: 7
+ACK 7 lost or error in frame 7. Go back to 7.
+
+Sent Frame: F7 (Seq No: 7)
+Enter last ACK received (or frame number with error/loss) [7-7]: 
+
+
+
+
+
+
